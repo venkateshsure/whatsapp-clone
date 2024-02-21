@@ -9,31 +9,59 @@ import { IconButton } from "@material-ui/core";
 
 import SidebarChat from "../SidebarChat";
 import { db } from "../../firebase";
+import {  collection, query, where, getDocs } from "firebase/firestore";
+
 
 import { useState, useEffect } from "react";
-import { useStateValue } from "../../StateProvider";
+// import { useStateValue } from "../../StateProvider";
 
 import "./index.css";
 
 function Sidebar() {
-    // const [rooms, setRooms] = useState([]);
+     const [rooms, setRooms] = useState([]);
   // const [{ user }] = useStateValue();
   // const [{ user }, dispatch] = useStateValue();
 
-  /* useEffect(() => {
-    const unsubscribe = db.collection("rooms").onSnapShot((snapshot) =>
-      setRooms(
-        snapshot.docs.map((doc) => ({
+   useEffect(() => {
+
+    const getDatabase=async()=>{
+      const q = query(collection(db, "rooms"));
+
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data());
+        setRooms({
           id: doc.id,
           data: doc.data(),
-        }))
-      )
-    );
-    return () => {
-      unsubscribe();
-    };
-  }, []);  */
+        })
+      });
 
+  }
+
+    getDatabase();
+
+
+
+
+   /* const q = query(collection(db, "rooms"))
+  const unsub = onSnapshot(q, (querySnapshot) => {
+    console.log("Data", querySnapshot.docs.map(d => doc.data()));
+  });*/
+
+
+    /* const unsubscribe = db.collection("rooms").onSnapshot((snapshot) =>
+    setRooms(
+      snapshot.docs.map((doc) => ({
+        id: doc.id,
+        data: doc.data(),
+      }))
+    )
+    ); */
+
+    
+}, []);
+console.log(rooms)
   return (
     <div className="sidebar">
       <div className="sidebar_header">
@@ -62,9 +90,9 @@ function Sidebar() {
       </div>
       <div className="sidebar_chats">
         <SidebarChat addNewChat/>
-        <SidebarChat/>
-        <SidebarChat/>
-        <SidebarChat/>
+        <SidebarChat />
+        <SidebarChat />
+        <SidebarChat />
       </div>
     </div>
   );
@@ -72,7 +100,6 @@ function Sidebar() {
 
 export default Sidebar;
 
-/*  <SidebarChat addNewChat />
-        {rooms.map((room) => (
+/*  {rooms.map((room) => (
           <SidebarChat key={room.id} id={room.id} name={room.data.name} />
-        ))} */
+        ))}  */

@@ -81,7 +81,17 @@ function Chat() {
         </div>
       </div>
       <div className="chat_body">
-        <p className="chat_message">hey guys</p>
+      <p
+            className={`chat_message ${
+              true && 'chat_receiver'
+            }`}
+          >
+            <span className="chat_name">venky</span>
+            hi 
+            <span className="chat_timestamp ">
+              3:45pm
+            </span>
+          </p>
       </div>
       <div className="chat_footer">
         <InsertEmoticonIcon />
