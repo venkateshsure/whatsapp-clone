@@ -13,14 +13,14 @@ import "./index.css";
 import {signInWithPopup,  } from "firebase/auth";
 
 function Login() {
-  const [dispatch] = useStateValue();
+ /* const [dispatch] = useStateValue();
   const signIn = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
        console.log(result)
       })
       .catch((error) => alert(error.message));
-  };
+  }; */
 
   return (
     <div className="login">
@@ -33,7 +33,7 @@ function Login() {
           <h1>Sign in to WhatsApp</h1>
         </div>
 
-        <Button type="submit" onClick={signIn}>
+        <Button type="submit">
           Sign In With Google
         </Button>
       </div>

@@ -11,15 +11,25 @@ import { useStateValue } from "./StateProvider";
 
 const App = () => {
   // const [{ user }] = useStateValue();
-   const [{ user }, dispatch] = useStateValue();
+  // const [{ user }, dispatch] = useStateValue();
 
   return (
     <div className="app">
-      {!user ? (
+      {false ? (
         <Login />
       ) : (
         <div className="app_body">
-          <BrowserRouter>
+          <Sidebar/>
+          <Chat/>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default App;
+
+/* <BrowserRouter>
             <Switch>
               <Sidebar />
               <Route exact path="/rooms/:roomId">
@@ -29,11 +39,4 @@ const App = () => {
                 <Chat />
               </Route>
             </Switch>
-          </BrowserRouter>
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default App;
+          </BrowserRouter> */

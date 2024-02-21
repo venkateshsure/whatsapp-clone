@@ -16,11 +16,11 @@ import { useStateValue } from "../../StateProvider";
 import "./index.css";
 
 function Sidebar() {
-  const [rooms, setRooms] = useState([]);
-  const [{ user }] = useStateValue();
+    // const [rooms, setRooms] = useState([]);
+  // const [{ user }] = useStateValue();
   // const [{ user }, dispatch] = useStateValue();
 
-  useEffect(() => {
+  /* useEffect(() => {
     const unsubscribe = db.collection("rooms").onSnapShot((snapshot) =>
       setRooms(
         snapshot.docs.map((doc) => ({
@@ -32,12 +32,12 @@ function Sidebar() {
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, []);  */
 
   return (
     <div className="sidebar">
       <div className="sidebar_header">
-        <AccountCircleIcon src={user?.photoURL} />
+        <AccountCircleIcon />
         <div className="sidebar_headerRight">
           <IconButton>
             <DonutLargeIcon />
@@ -61,13 +61,18 @@ function Sidebar() {
         </div>
       </div>
       <div className="sidebar_chats">
-        <SidebarChat addNewChat />
-        {rooms.map((room) => (
-          <SidebarChat key={room.id} id={room.id} name={room.data.name} />
-        ))}
+        <SidebarChat addNewChat/>
+        <SidebarChat/>
+        <SidebarChat/>
+        <SidebarChat/>
       </div>
     </div>
   );
 }
 
 export default Sidebar;
+
+/*  <SidebarChat addNewChat />
+        {rooms.map((room) => (
+          <SidebarChat key={room.id} id={room.id} name={room.data.name} />
+        ))} */

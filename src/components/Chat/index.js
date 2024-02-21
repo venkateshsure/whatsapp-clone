@@ -20,7 +20,7 @@ import "./index.css";
 
 function Chat() {
   const [input, setInput] = useState("");
-  const { roomId } = useParams();
+  /* const { roomId } = useParams();
   const [roomName, setRoomName] = useState("");
   const [messages, setMessages] = useState([]);
   const [{ user }] = useStateValue();
@@ -39,35 +39,33 @@ function Chat() {
           setMessages(snapshot.docs.map((doc) => doc.data()))
         );
     }
-  }, [roomId]);
+  }, [roomId]);*/
 
   const sendMsg = (e) => {
     e.preventDefault();
 
-    db.collection("rooms").doc(roomId).collection("messages").add({
+   /* db.collection("rooms").doc(roomId).collection("messages").add({
       message: input,
       name: user.displayName,
       timestamp: serverTimestamp(),
-    });
+    });*/
+    console.log(e.target.value)
 
     setInput("");
-  };
+  }; 
 
   const onChangeInput = (event) => {
     setInput(event.target.value);
-  };
+  }; 
 
   return (
     <div className="chat">
       <div className="chat_header">
         <Avatar src="https://api.dicebear.com/7.x/adventurer/svg" />
         <div className="chat_headerInfo">
-          <h3>{roomName}</h3>
+          <h3>roomName</h3>
           <p>
-            Last seen{" "}
-            {new Date(
-              messages[messages.length - 1]?.timestamp?.toDate()
-            ).toUTCString()}
+            Last seen ...            
           </p>
         </div>
         <div className="chat_headerRight">
@@ -83,19 +81,7 @@ function Chat() {
         </div>
       </div>
       <div className="chat_body">
-        {messages.map((message) => (
-          <p
-            className={`chat_message ${
-              message.name === user.displayName && "chat_receiver"
-            }`}
-          >
-            <span className="chat__name">{message.name}</span>
-            {message.message}
-            <span className="chat_timestamp">
-              {new Date(message.timeStamp?.toDate()).toUTCString()}
-            </span>
-          </p>
-        ))}
+        <p className="chat_message">hey guys</p>
       </div>
       <div className="chat_footer">
         <InsertEmoticonIcon />
@@ -117,3 +103,24 @@ function Chat() {
 }
 
 export default Chat;
+
+/*
+
+{new Date(
+              messages[messages.length - 1]?.timestamp?.toDate()
+            ).toUTCString()}
+
+
+{messages.map((message) => (
+          <p
+            className={`chat_message ${
+              message.name === user.displayName && "chat_receiver"
+            }`}
+          >
+            <span className="chat__name">{message.name}</span>
+            {message.message}
+            <span className="chat_timestamp">
+              {new Date(message.timeStamp?.toDate()).toUTCString()}
+            </span>
+          </p>
+        ))} */
