@@ -7,7 +7,7 @@ import Sidebar from "./components/Sidebar";
 import Chat from "./components/Chat";
 
 import Login from "./components/Login";
-import { useStateValue } from "./StateProvider";
+// import { useStateValue } from "./StateProvider";
 
 const App = () => {
   // const [{ user }] = useStateValue();
@@ -19,8 +19,13 @@ const App = () => {
         <Login />
       ) : (
         <div className="app_body">
-          <Sidebar/>
-          <Chat/>
+          <BrowserRouter>
+          <Sidebar />
+            <Switch>
+              <Route exact path="/rooms/:roomId" component={Chat}/>
+               <Route exact path="/" component={Chat}/>
+            </Switch>
+          </BrowserRouter>
         </div>
       )}
     </div>
@@ -29,14 +34,4 @@ const App = () => {
 
 export default App;
 
-/* <BrowserRouter>
-            <Switch>
-              <Sidebar />
-              <Route exact path="/rooms/:roomId">
-                <Chat />
-              </Route>
-              <Route exact path="/">
-                <Chat />
-              </Route>
-            </Switch>
-          </BrowserRouter> */
+/*  */

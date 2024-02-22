@@ -1,4 +1,5 @@
 import { db } from "../../firebase";
+import {Link} from 'react-router-dom'
 import { useState, useEffect } from "react";
 
 import { useParams } from "react-router-dom";
@@ -15,29 +16,56 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 // import { firestore, auth, FieldValue } from "firebase/firestore";
+import {doc, getDoc } from "firebase/firestore";
 
 import "./index.css";
 
-function Chat() {
+function Chat(props) {
   const [input, setInput] = useState("");
-  /* const { roomId } = useParams();
-  const [roomName, setRoomName] = useState("");
-  const [messages, setMessages] = useState([]);
-  const [{ user }] = useStateValue();
+ /* const { roomId } = useParams();*/
 
+  const [roomName, setRoomName] = useState("");
+  const {match}=props
+  const {params}=match
+  const {roomId}=params
+  console.log(params)
   useEffect(() => {
+    const fetchRoomName = async () => {
+      try {
+        const roomDoc = await getDoc(doc(db, "rooms", roomId));
+         // console.log(roomDoc.data())
+        if (roomDoc.exists()) {
+          setRoomName(roomDoc.data().name);
+        } else {
+          console.log("No such document!");
+        }
+      } catch (error) {
+        console.error("Error getting document:", error);
+      }
+    };
+
     if (roomId) {
+      fetchRoomName();
+    }
+  }, [roomId]);
+ 
+  /* const [messages, setMessages] = useState([]);
+  const [{ user }] = useStateValue(); */
+
+  /* useEffect(() => {
+    if (roomId) {
+
       db.collection("rooms")
         .doc(roomId)
         .onSnapshot((snapshot) => setRoomName(snapshot.data().name));
 
-      db.collection("rooms")
+    /*  db.collection("rooms")
         .doc(roomId)
         .collection("messages")
         .orderBy("timestamp", "asc")
         .onSnapshot((snapshot) =>
           setMessages(snapshot.docs.map((doc) => doc.data()))
-        );
+        ); 
     }
   }, [roomId]);*/
 
@@ -59,11 +87,12 @@ function Chat() {
   }; 
 
   return (
+    
     <div className="chat">
       <div className="chat_header">
         <Avatar src="https://api.dicebear.com/7.x/adventurer/svg" />
         <div className="chat_headerInfo">
-          <h3>roomName</h3>
+          <h3>{roomName}</h3>
           <p>
             Last seen ...            
           </p>
@@ -109,6 +138,7 @@ function Chat() {
         <MicIcon />
       </div>
     </div>
+  
   );
 }
 
