@@ -21,7 +21,6 @@ import {doc, getDoc } from "firebase/firestore";
 import "./index.css";
 
 function Chat(props) {
-  
   const [input, setInput] = useState("");
   // const { roomId } = useParams();
 

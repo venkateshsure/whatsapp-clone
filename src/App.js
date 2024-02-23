@@ -22,8 +22,9 @@ const App = () => {
           <BrowserRouter>
           <Sidebar />
             <Switch>
-            <Route path="/rooms/:id" component={Chat}/>
             <Route exact path="/" component={Chat}/>
+            <Route exact path="/rooms/:id" component={Chat}/>
+           
       
               
             </Switch>
