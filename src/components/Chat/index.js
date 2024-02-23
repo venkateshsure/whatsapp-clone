@@ -1,5 +1,5 @@
 import { db } from "../../firebase";
-import {Link} from 'react-router-dom'
+
 import { useState, useEffect } from "react";
 
 import { useParams } from "react-router-dom";
@@ -21,20 +21,24 @@ import {doc, getDoc } from "firebase/firestore";
 import "./index.css";
 
 function Chat(props) {
+  
   const [input, setInput] = useState("");
- /* const { roomId } = useParams();*/
+  // const { roomId } = useParams();
 
   const [roomName, setRoomName] = useState("");
-  const {match}=props
+   const {match}=props
   const {params}=match
-  const {roomId}=params
-  console.log(params)
+  const {id}=params
+  console.log(id)
+
+
+
   useEffect(() => {
     const fetchRoomName = async () => {
       try {
-        const roomDoc = await getDoc(doc(db, "rooms", roomId));
-         // console.log(roomDoc.data())
+        const roomDoc = await getDoc(doc(db, "rooms", id));
         if (roomDoc.exists()) {
+          //console.log(roomDoc.data().name)
           setRoomName(roomDoc.data().name);
         } else {
           console.log("No such document!");
@@ -44,30 +48,12 @@ function Chat(props) {
       }
     };
 
-    if (roomId) {
+    if (id) {
       fetchRoomName();
     }
-  }, [roomId]);
+  }, [id]);
  
-  /* const [messages, setMessages] = useState([]);
-  const [{ user }] = useStateValue(); */
-
-  /* useEffect(() => {
-    if (roomId) {
-
-      db.collection("rooms")
-        .doc(roomId)
-        .onSnapshot((snapshot) => setRoomName(snapshot.data().name));
-
-    /*  db.collection("rooms")
-        .doc(roomId)
-        .collection("messages")
-        .orderBy("timestamp", "asc")
-        .onSnapshot((snapshot) =>
-          setMessages(snapshot.docs.map((doc) => doc.data()))
-        ); 
-    }
-  }, [roomId]);*/
+ 
 
   const sendMsg = (e) => {
     e.preventDefault();
@@ -145,6 +131,30 @@ function Chat(props) {
 export default Chat;
 
 /*
+
+ /* const [messages, setMessages] = useState([]);
+  const [{ user }] = useStateValue(); */
+
+  /* useEffect(() => {
+    if (roomId) {
+
+      db.collection("rooms")
+        .doc(roomId)
+        .onSnapshot((snapshot) => setRoomName(snapshot.data().name));
+
+    /*  db.collection("rooms")
+        .doc(roomId)
+        .collection("messages")
+        .orderBy("timestamp", "asc")
+        .onSnapshot((snapshot) =>
+          setMessages(snapshot.docs.map((doc) => doc.data()))
+        ); 
+    }
+  }, [roomId]);
+
+
+
+
 
 {new Date(
               messages[messages.length - 1]?.timestamp?.toDate()

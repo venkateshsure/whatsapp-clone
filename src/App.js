@@ -22,8 +22,10 @@ const App = () => {
           <BrowserRouter>
           <Sidebar />
             <Switch>
-              <Route exact path="/rooms/:roomId" component={Chat}/>
-               <Route exact path="/" component={Chat}/>
+            <Route path="/rooms/:id" component={Chat}/>
+            <Route exact path="/" component={Chat}/>
+      
+              
             </Switch>
           </BrowserRouter>
         </div>
@@ -34,4 +36,4 @@ const App = () => {
 
 export default App;
 
-/*  */
+/* <Route exact path="/" component={Chat}/>  */
