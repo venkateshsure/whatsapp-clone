@@ -23,7 +23,7 @@
             <Sidebar />
               <Switch>
                 <Route exact path="/" component={Chat}/>
-                <Route exact path="/rooms/:id" component={Chat}/>         
+                <Route exact path="/rooms/:roomId" component={Chat}/>         
               </Switch>
             </BrowserRouter>
           </div>

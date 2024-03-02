@@ -2,7 +2,7 @@ import { db } from "../../firebase";
 
 import { useState, useEffect } from "react";
 
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 
 import { useStateValue } from "../../StateProvider";
 
@@ -28,24 +28,23 @@ import {doc, getDoc } from "firebase/firestore";
 import "./index.css";
 
 function Chat(props) {
-  const [input, setInput] = useState("");
-  // const { roomId } = useParams();
-
-  const [roomName, setRoomName] = useState("");
-   const {match}=props
-  const {params}=match
-  const {id}=params
-  console.log(id)
+    const {match}=props
+    const {params}=match
+    const {roomId}=params
+    const [input, setInput] = useState("");
+    const [roomName, setRoomName] = useState("");
+     // const { roomId } = useParams();
+     console.log(roomId)
 
 
 
   useEffect(() => {
     const fetchRoomName = async () => {
       try {
-        const roomDoc = await getDoc(doc(db, "rooms", id));
+        const roomDoc = await getDoc(doc(db, "rooms", roomId));
         if (roomDoc.exists()) {
           //console.log(roomDoc.data().name)
-          setRoomName(roomDoc.data().name);
+        setRoomName(roomDoc.data().name);
         } else {
           console.log("No such document!");
         }
@@ -54,10 +53,11 @@ function Chat(props) {
       }
     };
 
-    if (id) {
-      fetchRoomName();
+    if(roomId){
+        fetchRoomName();
     }
-  }, [id]);
+    
+  }, [roomId]);
  
  
 

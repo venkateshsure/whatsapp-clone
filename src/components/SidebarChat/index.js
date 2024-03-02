@@ -37,7 +37,7 @@ const SidebarChat=(props)=> {
   }; // /rooms/${id}
 
   return !addNewChat ? (
-    <Link to={`/rooms/${id}`} exact> 
+    <Link to={`/rooms/${id}`}> 
       <div className="sidebarChat">
         <RxAvatar src="https://api.dicebear.com/7.x/adventurer/svg" />
 
