@@ -1,5 +1,5 @@
 import React from "react";
-
+import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../../firebase";
 
 import { actionTypes } from "../../Reducer";
@@ -10,17 +10,19 @@ import { Button } from "@material-ui/core";
 
 import "./index.css";
 
-import {signInWithPopup,  } from "firebase/auth";
-
 function Login() {
- /* const [dispatch] = useStateValue();
+  const [{},dispatch]=useStateValue()
+  // const [dispatch]=useStateValue()
   const signIn = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
-       console.log(result)
+        dispatch({
+          type: actionTypes.SET_USER,
+          user: result.user,
+        });
       })
       .catch((error) => alert(error.message));
-  }; */
+  };  
 
   return (
     <div className="login">
@@ -33,7 +35,7 @@ function Login() {
           <h1>Sign in to WhatsApp</h1>
         </div>
 
-        <Button type="submit">
+        <Button onClick={signIn} type="button">
           Sign In With Google
         </Button>
       </div>

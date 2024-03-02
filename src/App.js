@@ -7,15 +7,15 @@ import Sidebar from "./components/Sidebar";
 import Chat from "./components/Chat";
 
 import Login from "./components/Login";
-// import { useStateValue } from "./StateProvider";
+import { useStateValue } from "./StateProvider";
 
 const App = () => {
-  // const [{ user }] = useStateValue();
-  // const [{ user }, dispatch] = useStateValue();
+   const [{ user }] = useStateValue();
+   // const [{ user }, dispatch] = useStateValue();
 
   return (
     <div className="app">
-      {false ? (
+      {!user? (
         <Login />
       ) : (
         <div className="app_body">
@@ -23,10 +23,7 @@ const App = () => {
           <Sidebar />
             <Switch>
             <Route exact path="/" component={Chat}/>
-            <Route exact path="/rooms/:id" component={Chat}/>
-           
-      
-              
+            <Route exact path="/rooms/:id" component={Chat}/>         
             </Switch>
           </BrowserRouter>
         </div>

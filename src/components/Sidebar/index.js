@@ -1,11 +1,10 @@
 import React from "react";
 
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ChatIcon from "@mui/icons-material/Chat";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DonutLargeIcon from "@mui/icons-material/DonutLarge";
 import SearchIcon from "@mui/icons-material/Search";
-import { IconButton } from "@material-ui/core";
+import {Avatar, IconButton } from "@material-ui/core";
 
 import SidebarChat from "../SidebarChat";
 import { db } from "../../firebase";
@@ -14,14 +13,14 @@ import {  collection, query, getDocs,addDoc } from "firebase/firestore";
 
 
 import { useState, useEffect } from "react";
-// import { useStateValue } from "../../StateProvider";
+import { useStateValue } from "../../StateProvider";
 
 import "./index.css";
 
 function Sidebar() {
      const [rooms, setRooms] = useState([]);
-  // const [{ user }] = useStateValue();
-  // const [{ user }, dispatch] = useStateValue();
+  const [{ user },dispath] = useStateValue();
+   // const [{ user }] = useStateValue();
 
   const addChat=async (roomName)=>{
     try{
@@ -54,9 +53,9 @@ function Sidebar() {
   
     getDatabase();
 
-    /* return ()=>{
+     return ()=>{
       getDatabase()
-    }*/
+    }
 
   }, []);
 
@@ -64,7 +63,7 @@ function Sidebar() {
   return (
     <div className="sidebar">
       <div className="sidebar_header">
-        <AccountCircleIcon />
+        <Avatar src={user?.photoURL} alt="V"/>
         <div className="sidebar_headerRight">
           <IconButton>
             <DonutLargeIcon />
