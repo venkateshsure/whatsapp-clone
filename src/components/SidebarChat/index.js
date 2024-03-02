@@ -1,8 +1,11 @@
-import { Avatar } from "@material-ui/core";
+import { Link } from "react-router-dom";
+
+// import { Avatar } from "@material-ui/core";
+import { RxAvatar } from "react-icons/rx";
 
  // import { db } from "../../firebase";
 
- import { Link } from "react-router-dom";
+
 
 // import { useState, useEffect } from "react";
 
@@ -31,12 +34,12 @@ const SidebarChat=(props)=> {
       addChat(roomName)
 
     }
-  }; 
+  }; // /rooms/${id}
 
   return !addNewChat ? (
-    <Link to={`/rooms/${id}`}>
+    <Link to={`/rooms/${id}`} exact> 
       <div className="sidebarChat">
-        <Avatar src="https://api.dicebear.com/7.x/adventurer/svg" />
+        <RxAvatar src="https://api.dicebear.com/7.x/adventurer/svg" />
 
         <div className="sidebarChat_info">
           <h2>{name}</h2>

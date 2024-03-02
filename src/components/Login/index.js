@@ -6,7 +6,7 @@ import { actionTypes } from "../../Reducer";
 
 import { useStateValue } from "../../StateProvider";
 
-import { Button } from "@material-ui/core";
+// import { Button } from "@material-ui/core";
 
 import "./index.css";
 
@@ -35,9 +35,9 @@ function Login() {
           <h1>Sign in to WhatsApp</h1>
         </div>
 
-        <Button onClick={signIn} type="button">
+        <button onClick={signIn} type="button">
           Sign In With Google
-        </Button>
+        </button>
       </div>
     </div>
   );

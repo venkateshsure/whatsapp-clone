@@ -8,12 +8,19 @@ import { useStateValue } from "../../StateProvider";
 
 import { serverTimestamp } from "firebase/firestore";
 
-import { Avatar, IconButton } from "@material-ui/core";
-import SearchIcon from "@mui/icons-material/Search";
-import MicIcon from "@mui/icons-material/Mic";
-import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
-import AttachFileIcon from "@mui/icons-material/AttachFile";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { CiSearch } from "react-icons/ci";
+import { FaMicrophone } from "react-icons/fa";
+import { MdInsertEmoticon } from "react-icons/md";
+import { MdMoreVert } from "react-icons/md";
+import { RxAvatar } from "react-icons/rx";
+import { MdAttachFile } from "react-icons/md";
+
+// import { Avatar, IconButton } from "@material-ui/core";
+// import SearchIcon from "@mui/icons-material/Search";
+// import MicIcon from "@mui/icons-material/Mic";
+//import  from "@mui/icons-material/InsertEmoticon";
+// import AttachFileIcon from "@mui/icons-material/AttachFile";
+// import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 // import { firestore, auth, FieldValue } from "firebase/firestore";
 import {doc, getDoc } from "firebase/firestore";
@@ -75,7 +82,7 @@ function Chat(props) {
     
     <div className="chat">
       <div className="chat_header">
-        <Avatar src="https://api.dicebear.com/7.x/adventurer/svg" />
+        <RxAvatar src="https://api.dicebear.com/7.x/adventurer/svg" />
         <div className="chat_headerInfo">
           <h3>{roomName}</h3>
           <p>
@@ -83,15 +90,13 @@ function Chat(props) {
           </p>
         </div>
         <div className="chat_headerRight">
-          <IconButton>
-            <SearchIcon />
-          </IconButton>
-          <IconButton>
-            <AttachFileIcon />
-          </IconButton>
-          <IconButton>
-            <MoreVertIcon />
-          </IconButton>
+          
+           <CiSearch/>
+         
+            <MdAttachFile />
+          
+            <MdMoreVert />
+         
         </div>
       </div>
       <div className="chat_body">
@@ -108,7 +113,7 @@ function Chat(props) {
           </p>
       </div>
       <div className="chat_footer">
-        <InsertEmoticonIcon />
+        <MdInsertEmoticon />
         <form>
           <input
             value={input}
@@ -120,7 +125,7 @@ function Chat(props) {
             Send a message
           </button>
         </form>
-        <MicIcon />
+        <FaMicrophone />
       </div>
     </div>
   
