@@ -1,4 +1,4 @@
-  import { Switch, BrowserRouter, Route } from "react-router-dom";
+  import { Routes, BrowserRouter, Route } from "react-router-dom";
 
   import "./App.css";
 
@@ -21,10 +21,10 @@
           <div className="app_body">
             <BrowserRouter>
             <Sidebar />
-              <Switch>
-                <Route exact path="/" component={Chat}/>
-                <Route exact path="/rooms/:roomId" component={Chat}/>         
-              </Switch>
+              <Routes>
+                <Route exact path="/" element={<Chat/>}/>
+                <Route exact path="/rooms/:roomId" element={<Chat/>}/>         
+              </Routes>
             </BrowserRouter>
           </div>
         )}

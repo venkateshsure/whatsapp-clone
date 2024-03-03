@@ -2,11 +2,12 @@ import { db } from "../../firebase";
 
 import { useState, useEffect } from "react";
 
-// import { useParams } from "react-router-dom";
+ import { useParams } from "react-router-dom";
 
 import { useStateValue } from "../../StateProvider";
 
-import { serverTimestamp } from "firebase/firestore";
+// import { serverTimestamp } from "firebase/firestore";
+import { collection, doc, getDoc,query, orderBy, onSnapshot,serverTimestamp} from "firebase/firestore";
 
 import { CiSearch } from "react-icons/ci";
 import { FaMicrophone } from "react-icons/fa";
@@ -23,28 +24,36 @@ import { MdAttachFile } from "react-icons/md";
 // import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 // import { firestore, auth, FieldValue } from "firebase/firestore";
-import {doc, getDoc } from "firebase/firestore";
+// import {doc, getDoc } from "firebase/firestore";
 
 import "./index.css";
 
-function Chat(props) {
-    const {match}=props
-    const {params}=match
-    const {roomId}=params
+function Chat() {
+   /* const {match}=props
+    console.log(match) */
+    const {roomId}=useParams()
     const [input, setInput] = useState("");
     const [roomName, setRoomName] = useState("");
-     // const { roomId } = useParams();
-     console.log(roomId)
-
-
+    const [messages,setMessages]=useState([])
 
   useEffect(() => {
     const fetchRoomName = async () => {
       try {
         const roomDoc = await getDoc(doc(db, "rooms", roomId));
         if (roomDoc.exists()) {
-          //console.log(roomDoc.data().name)
-        setRoomName(roomDoc.data().name);
+          setRoomName(roomDoc.data().name);
+
+          const q = query(
+            collection(db, "rooms", roomId, "messages"),
+            orderBy("timestamp", "asc")
+          );
+          // console.log(q)
+
+          const unsubscribe = onSnapshot(q, (snapshot) => {
+            setMessages(snapshot.docs.map((doc) => doc.data()));
+          });
+
+          return unsubscribe;
         } else {
           console.log("No such document!");
         }
@@ -53,12 +62,15 @@ function Chat(props) {
       }
     };
 
-    if(roomId){
-        fetchRoomName();
+    if (roomId) {
+      fetchRoomName();
     }
-    
-  }, [roomId]);
- 
+
+    return () => {
+      // Cleanup function
+    };
+
+  },[roomId])
  
 
   const sendMsg = (e) => {
@@ -69,14 +81,13 @@ function Chat(props) {
       name: user.displayName,
       timestamp: serverTimestamp(),
     });*/
-    console.log(e.target.value)
-
     setInput("");
   }; 
 
   const onChangeInput = (event) => {
     setInput(event.target.value);
   }; 
+  console.log(messages)
 
   return (
     
@@ -100,17 +111,21 @@ function Chat(props) {
         </div>
       </div>
       <div className="chat_body">
-      <p
-            className={`chat_message ${
-              true && 'chat_receiver'
-            }`}
-          >
-            <span className="chat_name">venky</span>
-            hi 
-            <span className="chat_timestamp ">
-              3:45pm
-            </span>
-          </p>
+        {messages.map((message)=>(
+          <p
+          className={`chat_message ${
+            true && 'chat_receiver'
+          }`}
+        >
+          <span className="chat_name">{message.name}</span>
+          {message.message}
+          <span className="chat_timestamp ">
+            {new Date(
+              message?.timestamp?.toDate()
+            ).toUTCString()}
+          </span>
+        </p>
+        ))}
       </div>
       <div className="chat_footer">
         <MdInsertEmoticon />

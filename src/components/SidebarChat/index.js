@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 
-// import { Avatar } from "@material-ui/core";
-import { RxAvatar } from "react-icons/rx";
+ // import { Avatar } from "@material-ui/core";
+ import { RxAvatar } from "react-icons/rx";
 
- // import { db } from "../../firebase";
+  // import { db } from "../../firebase";
 
 
-
-// import { useState, useEffect } from "react";
+ // import {  collection, query, getDocs } from "firebase/firestore";
+ // import { useState, useEffect } from "react";
 
 
 import "./index.css";
@@ -15,10 +15,10 @@ import "./index.css";
 const SidebarChat=(props)=> {
   const {id,name, addNewChat,addChat }=props
   // const [seed,setSeed]=useState("")
-  /* const [messages, setMessages] = useState("");
-  useEffect(() => {
-    if (id) {
-      db.collection("rooms")
+  // const [messages, setMessages] = useState("");
+ /* useEffect(() => {
+       if(id){
+        db.collection("rooms")
         .doc(id)
         .collection("messages")
         .orderBy("timestamp", "desc")
@@ -34,7 +34,7 @@ const SidebarChat=(props)=> {
       addChat(roomName)
 
     }
-  }; // /rooms/${id}
+  }; 
 
   return !addNewChat ? (
     <Link to={`/rooms/${id}`}> 
@@ -58,5 +58,24 @@ const SidebarChat=(props)=> {
 export default SidebarChat;
 
 /*
-   </Link>
+ /*
+    const getData=async ()=>{
+    if (id) {
+      const q = query(collection(db, "rooms"));
+      console.log(q)
+      try {
+        const querySnapshot = await getDocs(q);
+        console.log(querySnapshot);
+      }
+      catch (error) {
+        console.error("Error fetching rooms: ", error);
+      }
+    }
+  }
+    getData() */
+
+
+
+
+ /*  </Link>
 <Avatar src={`https://vatars.dicebear.com/api/human/${seed}.svg`} */

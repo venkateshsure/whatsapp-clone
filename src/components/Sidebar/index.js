@@ -64,11 +64,10 @@ function Sidebar() {
 
   }, []);
 
-  
   return (
     <div className="sidebar">
       <div className="sidebar_header">
-        <RxAvatar src={user?.photoURL} alt="V"/>
+        <img src={user?.photoURL} alt="V" className="header-image"/>
         <div className="sidebar_headerRight">
           
             <MdDonutLarge />
