@@ -3,30 +3,39 @@ import { Link } from "react-router-dom";
  // import { Avatar } from "@material-ui/core";
  import { RxAvatar } from "react-icons/rx";
 
-  // import { db } from "../../firebase";
+   import { db } from "../../firebase";
 
 
- // import {  collection, query, getDocs } from "firebase/firestore";
- // import { useState, useEffect } from "react";
+  import {  collection, query,orderBy, limit,getDocs } from "firebase/firestore";
+  import { useState, useEffect } from "react";
 
 
 import "./index.css";
 
 const SidebarChat=(props)=> {
-  const {id,name, addNewChat,addChat }=props
+  const {roomId,name, addNewChat,addChat }=props
+  console.log(roomId)
   // const [seed,setSeed]=useState("")
-  // const [messages, setMessages] = useState("");
- /* useEffect(() => {
-       if(id){
-        db.collection("rooms")
-        .doc(id)
-        .collection("messages")
-        .orderBy("timestamp", "desc")
-        .onSnapshot((snapshot) =>
-          setMessages(snapshot.docs.map((doc) => doc.data()))
+   const [messages, setMessages] = useState("");
+ useEffect(() => {
+  const fetchLastMessage = async () => {
+    try {
+        const q = query(
+            collection(db, "rooms", roomId, "messages"),
+            orderBy("timestamp", "desc"),
+            limit(1)
         );
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+            setMessages(doc.data().message);
+        });
+    } catch (error) {
+        console.error("Error fetching last message: ", error);
     }
-  }, [id]); */
+};
+
+fetchLastMessage();
+  }, [roomId]); 
 
   const createChat =async  () => {
     const roomName = prompt("please enter name for chat");
@@ -35,15 +44,16 @@ const SidebarChat=(props)=> {
 
     }
   }; 
+ // console.log(messages)
 
   return !addNewChat ? (
-    <Link to={`/rooms/${id}`}> 
+    <Link to={`/rooms/${roomId}`}> 
       <div className="sidebarChat">
         <RxAvatar src="https://api.dicebear.com/7.x/adventurer/svg" />
 
         <div className="sidebarChat_info">
           <h2>{name}</h2>
-          <p>Last messages...</p>
+          <p>{messages}</p>
         </div>
       </div>
     

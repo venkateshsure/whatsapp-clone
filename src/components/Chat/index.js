@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import { useStateValue } from "../../StateProvider";
 
 // import { serverTimestamp } from "firebase/firestore";
-import { collection, doc, getDoc,query, orderBy, onSnapshot,serverTimestamp} from "firebase/firestore";
+import { collection, doc, getDoc,query, orderBy, onSnapshot,serverTimestamp,addDoc} from "firebase/firestore";
 
 import { CiSearch } from "react-icons/ci";
 import { FaMicrophone } from "react-icons/fa";
@@ -29,12 +29,12 @@ import { MdAttachFile } from "react-icons/md";
 import "./index.css";
 
 function Chat() {
-   /* const {match}=props
-    console.log(match) */
     const {roomId}=useParams()
     const [input, setInput] = useState("");
     const [roomName, setRoomName] = useState("");
     const [messages,setMessages]=useState([])
+    const [{user},dispatch]=useStateValue()
+     // console.log(user)
 
   useEffect(() => {
     const fetchRoomName = async () => {
@@ -47,7 +47,6 @@ function Chat() {
             collection(db, "rooms", roomId, "messages"),
             orderBy("timestamp", "asc")
           );
-          // console.log(q)
 
           const unsubscribe = onSnapshot(q, (snapshot) => {
             setMessages(snapshot.docs.map((doc) => doc.data()));
@@ -73,21 +72,24 @@ function Chat() {
   },[roomId])
  
 
-  const sendMsg = (e) => {
+  const sendMsg = async  (e) => {
     e.preventDefault();
-
-   /* db.collection("rooms").doc(roomId).collection("messages").add({
-      message: input,
-      name: user.displayName,
-      timestamp: serverTimestamp(),
-    });*/
+    try {
+      await addDoc(collection(db, "rooms", roomId, "messages"), {
+        message: input,
+        name: user.displayName, 
+        timestamp: serverTimestamp() 
+      });
+      setInput("");
+    } catch (error) {
+      console.error("Error sending message:", error);
+    }
     setInput("");
   }; 
 
   const onChangeInput = (event) => {
     setInput(event.target.value);
   }; 
-  console.log(messages)
 
   return (
     
@@ -97,7 +99,9 @@ function Chat() {
         <div className="chat_headerInfo">
           <h3>{roomName}</h3>
           <p>
-            Last seen ...            
+            Last seen{" "} {new Date(
+              messages[messages.length - 1]?.timestamp?.toDate()
+            ).toUTCString()}           
           </p>
         </div>
         <div className="chat_headerRight">
@@ -113,8 +117,9 @@ function Chat() {
       <div className="chat_body">
         {messages.map((message)=>(
           <p
+          key={message.name}
           className={`chat_message ${
-            true && 'chat_receiver'
+            message.name===user.displayName && 'chat_receiver'
           }`}
         >
           <span className="chat_name">{message.name}</span>
