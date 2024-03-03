@@ -4,28 +4,20 @@ import { CiChat1 } from "react-icons/ci";
 import { MdMoreVert } from "react-icons/md";
 import { MdDonutLarge } from "react-icons/md";
 import { CiSearch } from "react-icons/ci";
-import { RxAvatar } from "react-icons/rx";
-// import ChatIcon from "@mui/icons-material/Chat";
-// import MoreVertIcon from "@mui/icons-material/MoreVert";
-// import DonutLargeIcon from "@mui/icons-material/DonutLarge";
-// import SearchIcon from "@mui/icons-material/Search";
-// import {Avatar, IconButton } from "@material-ui/core";
+
+import {  collection, query, getDocs,addDoc } from "firebase/firestore";
+
+import { useState, useEffect } from "react";
 
 import SidebarChat from "../SidebarChat";
 import { db } from "../../firebase";
-import {  collection, query, getDocs,addDoc } from "firebase/firestore";
-
-
-
-import { useState, useEffect } from "react";
 import { useStateValue } from "../../StateProvider";
 
 import "./index.css";
 
 function Sidebar() {
      const [rooms, setRooms] = useState([]);
-  const [{ user },dispath] = useStateValue();
-   // const [{ user }] = useStateValue();
+     const [{ user }] = useStateValue();
 
   const addChat=async (roomName)=>{
     try{
@@ -99,19 +91,3 @@ function Sidebar() {
 }
 
 export default Sidebar;
-
-/*  
-        /* const q = query(collection(db, "rooms"))
-  const unsub = onSnapshot(q, (querySnapshot) => {
-    console.log("Data", querySnapshot.docs.map(d => doc.data()));
-  });*/
-
-
-    /* const unsubscribe = db.collection("rooms").onSnapshot((snapshot) =>
-    setRooms(
-      snapshot.docs.map((doc) => ({
-        id: doc.id,
-        data: doc.data(),
-      }))
-    )
-    ); */

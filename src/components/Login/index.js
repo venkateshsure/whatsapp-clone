@@ -1,18 +1,16 @@
 import React from "react";
+
 import { signInWithPopup } from "firebase/auth";
+
 import { auth, provider } from "../../firebase";
-
 import { actionTypes } from "../../Reducer";
-
 import { useStateValue } from "../../StateProvider";
-
-// import { Button } from "@material-ui/core";
 
 import "./index.css";
 
 function Login() {
   const [{},dispatch]=useStateValue()
-  // const [dispatch]=useStateValue()
+
   const signIn = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
@@ -42,4 +40,6 @@ function Login() {
     </div>
   );
 }
+
+
 export default Login;

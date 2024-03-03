@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 
- // import { Avatar } from "@material-ui/core";
- import { RxAvatar } from "react-icons/rx";
 
-   import { db } from "../../firebase";
+import { RxAvatar } from "react-icons/rx";
 
+import {  collection, query,orderBy, limit,getDocs } from "firebase/firestore";
 
-  import {  collection, query,orderBy, limit,getDocs } from "firebase/firestore";
-  import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+
+import { db } from "../../firebase";
 
 
 import "./index.css";
@@ -33,8 +33,9 @@ const SidebarChat=(props)=> {
         console.error("Error fetching last message: ", error);
     }
 };
-
-fetchLastMessage();
+if(roomId){
+  fetchLastMessage();
+}
   }, [roomId]); 
 
   const createChat =async  () => {
@@ -44,7 +45,6 @@ fetchLastMessage();
 
     }
   }; 
- // console.log(messages)
 
   return !addNewChat ? (
     <Link to={`/rooms/${roomId}`}> 
@@ -56,8 +56,7 @@ fetchLastMessage();
           <p>{messages}</p>
         </div>
       </div>
-    
-      </Link>
+   </Link>
       ): (
     <div className="sidebarChat" onClick={createChat}>
       <h2>Add new Chat</h2>
@@ -66,26 +65,6 @@ fetchLastMessage();
 }
 
 export default SidebarChat;
-
-/*
- /*
-    const getData=async ()=>{
-    if (id) {
-      const q = query(collection(db, "rooms"));
-      console.log(q)
-      try {
-        const querySnapshot = await getDocs(q);
-        console.log(querySnapshot);
-      }
-      catch (error) {
-        console.error("Error fetching rooms: ", error);
-      }
-    }
-  }
-    getData() */
-
-
-
 
  /*  </Link>
 <Avatar src={`https://vatars.dicebear.com/api/human/${seed}.svg`} */
