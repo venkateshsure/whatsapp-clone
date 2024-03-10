@@ -33,7 +33,7 @@ function Login() {
           <h1>Sign in to WhatsApp</h1>
         </div>
 
-        <button onClick={signIn} type="button">
+        <button onClick={signIn} type="button" className="sign-btn">
           Sign In With Google
         </button>
       </div>

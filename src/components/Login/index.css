@@ -25,3 +25,14 @@
     background-color: #0a8d48 !important;
     color: white;
   }
+
+  .sign-btn{
+    border:none;
+    outline:none;
+    cursor:pointer;
+    border-radius: 5px;
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
